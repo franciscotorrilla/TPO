@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styleFormulario.css">
+    <title>Formulario de contacto</title>
+</head>
+
+
+
+
+<body>
+  <form name="fvalida">
+      <table>
+          <tr>
+              <td>Nombre: </td>
+              <td><input type="text" placeholder="ingrese su nombre" name="nombre" size="24" maxlength="25"></td>
+          </tr>
+          <tr>
+              <td>Telefono: </td>
+              <td><input type="text" placeholder="sin 0 ni 15" name="telefono" size="24" maxlength="10"></td>
+          </tr>
+          <tr>
+              <td>Consulta:</td>
+              <td> <textarea  placeholder="ingrese su consulta" name="consulta" cols="25" rows="7  "></textarea></td>
+          </tr>
+          <tr>
+              <td colspan="2" align="center">
+
+                  <!-- Al presionar el botón, se llama a la función de validacion -->
+                  <input type="button" value="Enviar" onclick="valida_envia()">
+                  <input type="button" value="Volver" onClick="history.go(-1);">
+                </td>
+          </tr>
+
+      </table>
+  </form>
+  <script>
+    //Validación de un formulario con Javascript
+    //Fuente: https://desarrolloweb.com/articulos/1767.php
+
+
+    // Esta función valida todos los campos del form.
+    // Si alguno no cumple con los requisitos, se aborta
+    // con return. Caso contrario, al final se realiza 
+    // efectivamente el envio de los datos.
+
+    function valida_envia() {
+        //valido el nombre
+        if (document.fvalida.nombre.value.length == 0) {
+            alert("Tiene que escribir su nombre")
+            document.fvalida.nombre.focus()
+            return 0;
+        }
+
+        //valido la edad. tiene que ser entero mayor que 18
+        telefono = document.fvalida.telefono.value
+        telefono = validarEntero(telefono)
+        document.fvalida.telefono.value = telefono
+        if (telefono == "" || (document.fvalida.telefono.value.length)<10) {
+            alert("Tiene que introducir un número válido en su telefono.")
+            document.fvalida.telefono.focus()
+            return 0;
+        } 
+        if (document.fvalida.consulta.value.length == 0) {
+            alert("Tiene que escribir cual es su")
+            document.fvalida.nombre.focus()
+            return 0;
+        }
+        
+        //Finalmente, si llegó hasta aqui, se envia el form.
+        alert("Muchas gracias por enviar el formulario");
+        document.fvalida.submit();
+    }
+    
+    function validarEntero(valor) {
+        //intento convertir a entero.
+        //si era un entero no le afecta, si no lo era lo intenta convertir
+        valor = parseInt(valor)
+
+        //Compruebo si es un valor numérico
+        if (isNaN(valor)) {
+            //entonces (no es numero) devuelvo el valor cadena vacia
+            return ""
+        } else {
+            //En caso contrario (Si era un número) devuelvo el valor
+            return valor
+        }
+    }
+</script>
+  
+</body>
+
+
+</html>
